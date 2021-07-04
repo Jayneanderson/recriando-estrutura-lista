@@ -78,21 +78,6 @@ void removeBegin(List* list) {
 		list->size--;
 	}
 	
-//	if(!isEmpty(list)) {
-//		printf()
-//	}
-//	if(!isEmpty(list)) {
-//		
-//		Node* aux = list->head;
-//		
-//		//trocando do primeiro para o segundo nó
-//		list->head = aux->next;
-//		
-//		//apagando nó da estrutura
-//		free(aux);
-//		list->size--;
-//	}
-	
 }
 
 //Imprimir lista
@@ -110,7 +95,6 @@ void printList(List * list) {
 		printf("%d: %s\n", aux->elemento.id, aux->elemento.programName);
 		aux = aux->next; //passe para o próximo
 	}
-	
 	
 }
 
@@ -135,6 +119,29 @@ Node* findNode(List* list, int index) {
 	return NULL;
 }
 
+//Função para retornar o índice de um nó
+
+int findIndice(List* list, Node* n) {
+	if(n != NULL) {
+		Node* aux = list->head;
+		
+		int cont = 0;
+		
+		while(aux != n && n != NULL) {
+			aux = aux-> next;
+			cont++;
+		}
+		
+		if(aux != NULL) {
+			return cont;
+		}
+		
+	}
+	
+	printf("No nao pertence a lista\n");
+	return -1;
+}
+
 /* OBS: a FLECHA é utilizada para ponteiros e PONTO para variáveis */
 
 int main(int argc, char *argv[]) {
@@ -156,7 +163,8 @@ int main(int argc, char *argv[]) {
 	printList(lista);
 	printf("\n");
 	
-	printf("%d\n", findNode(lista, 1)->elemento.id);
+	
+	printf("%d\n",  findIndice(lista, lista->head->next->next));
 	return 0;
 }
 
