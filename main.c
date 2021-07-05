@@ -3,7 +3,6 @@
 #include <string.h>
 #include <stdbool.h>
 #include "list.h"
-
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 typedef struct elemento { //Estrutura datanode
 	int id; //identificador de cada nó
@@ -21,6 +20,8 @@ typedef struct list {
 	Node* head;
 } List;
 
+void erase(List* list, int indice);
+void exchangeNodes(List * list, Node* a, Node* b);
 
 //<----------Funções------------->
 
@@ -54,7 +55,7 @@ void insertBegin(List* list, Elemento elemento) {
 	n->next = list->head;
 	
 	//dizemos que o nó cabeça será nosso nó
-	list->head = n;
+	list->head = n; 
 	list->size++;
 }
 
@@ -141,6 +142,29 @@ int findIndice(List* list, Node* n) {
 	printf("No nao pertence a lista\n");
 	return -1;
 }
+
+void exchangeNodes(List * list, Node* a, Node* b) {
+	
+	if(a == b) {
+		return;
+	}
+	
+	int indexA = findIndice(list, a);
+	int indexB = findIndice(list, b);
+	
+	
+	if(indexA > indexB) {
+		Node* aux = a;
+		a = b;
+		b = findNode(list, indexA);
+		
+		
+		indexA = indexB;
+		indexB = findIndice(list, b);
+	}//fim if index
+}
+
+//Função para excluir o nó do índice desejado
 
 /* OBS: a FLECHA é utilizada para ponteiros e PONTO para variáveis */
 
