@@ -154,7 +154,7 @@ void exchangeNodes(List * list, Node* a, Node* b) {
 	
 	
 	if(indexA > indexB) {
-		Node* aux = a;
+		Node* aux;
 		a = b;
 		b = findNode(list, indexA);
 		
@@ -162,6 +162,32 @@ void exchangeNodes(List * list, Node* a, Node* b) {
 		indexA = indexB;
 		indexB = findIndice(list, b);
 	}//fim if index
+	
+	//pegando nó anterior ao nó B
+	Node* vizinhoB = findNode(list, indexB - 1);
+	
+	if(a == list->head) {
+		//pego a cabeça da lista e digo que recebe o nó B
+		list->head = b;
+	}
+	
+	else {
+		//Devolve o vizinho da esquerda de A
+		Node* vizinhoA = findNode(list, indexA - 1);
+		
+		//o vinzinho a esquerda aponta para o nó B
+		vizinhoA->next = b;
+	}
+	
+	//alterando o anterior do B, ou seja aponta para A
+	vizinhoB->next = a;
+	
+	//Estou salvando antes de perder a referência
+	Node* temp = a->next;
+	
+	a->next = b->next;
+	b->next = temp;
+	
 }
 
 //Função para excluir o nó do índice desejado
@@ -188,7 +214,9 @@ int main(int argc, char *argv[]) {
 	printf("\n");
 	
 	
-	printf("%d\n",  findIndice(lista, lista->head->next->next));
+	exchangeNodes(lista, lista->head->next, lista->head->next->next);
+	
+	printList(lista);
 	return 0;
 }
 
